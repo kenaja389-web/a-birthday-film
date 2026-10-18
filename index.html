@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Birthday Film — Dara</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #f5f0e8;
+  --paper: #fffdf8;
+  --ink: #302b25;
+  --muted: #81786d;
+  --gold: #a58a60;
+  --line: #ded5c7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+button { font: inherit; cursor: pointer; }
+
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: .12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+}
+
+nav {
+  height: 72px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font: 20px 'Playfair Display', serif;
+  letter-spacing: 1px;
+}
+
+.nav-right {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.hero {
+  min-height: 87vh;
+  padding: 90px 22px 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font: 400 clamp(52px, 10vw, 112px)/1.08 'Playfair Display', serif;
+  margin: 28px 0 22px;
+  letter-spacing: -3px;
+}
+
+.hero h1 em { font-weight: 400; }
+
+.hero p {
+  max-width: 390px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.primary {
+  margin-top: 35px;
+  padding: 15px 26px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 11px;
+  letter-spacing: 1px;
+  transition: .3s;
+}
+
+.primary:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.scroll-note {
+  position: absolute;
+  bottom: 25px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+
+.section { padding: 105px 8%; }
+.intro { background: var(--paper); text-align: center; }
+
+.intro-inner {
+  max-width: 650px;
+  margin: auto;
+}
+
+.intro blockquote {
+  font: italic 400 clamp(23px, 4vw, 36px)/1.65 'Playfair Display', serif;
+  margin: 35px 0;
+}
+
+.intro p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.signature {
+  color: var(--gold);
+  font: italic 22px 'Playfair Display', serif;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.section-head h2 {
+  font: 400 clamp(32px, 5vw, 48px) 'Playfair Display', serif;
+  margin-top: 13px;
+}
+
+.section-head p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 13px;
+  line-height: 1.9;
+}
+
+.gallery {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.photo-card {
+  min-width: 0;
+  background: var(--paper);
+  padding: 10px;
+  border: 1px solid var(--line);
+}
+
+.photo-frame {
+  height: 300px;
+  background: #e9e0d3;
+  overflow: hidden;
+}
+
+.photo-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s;
+}
+
+.photo-card:hover img { transform: scale(1.035); }
+
+.photo-caption {
+  padding: 17px 7px 10px;
+  text-align: center;
+  font: italic 16px 'Playfair Display', serif;
+}
+
+.letter-section { background: #e9e0d3; }
+
+.letter {
+  max-width: 680px;
+  margin: auto;
+  padding: clamp(28px, 7vw, 65px);
+  background: var(--paper);
+  box-shadow: 0 15px 50px #4736220c;
+}
+
+.letter-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.letter h3 {
+  font: 400 clamp(28px, 5vw, 40px) 'Playfair Display', serif;
+  margin: 30px 0;
+}
+
+.letter p {
+  color: #61584e;
+  font-size: 13px;
+  line-height: 2.2;
+  margin-bottom: 20px;
+}
+
+.letter .closing {
+  font: italic 23px 'Playfair Display', serif;
+  margin-top: 30px;
+}
+
+.wish {
+  max-width: 670px;
+  margin: auto;
+  text-align: center;
+}
+
+.wish .big-number {
+  font: 400 clamp(65px, 12vw, 115px) 'Playfair Display', serif;
+  color: #c7b493;
+}
+
+.wish h2 {
+  font: 400 clamp(32px, 6vw, 53px) 'Playfair Display', serif;
+  margin: 12px 0 25px;
+}
+
+.wish p {
+  max-width: 470px;
+  margin: auto;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2.1;
+}
+
+.cake {
+  margin: 35px auto 25px;
+  width: 120px;
+  height: 95px;
+  position: relative;
+}
+
+.cake-body {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 100px;
+  height: 52px;
+  border-radius: 5px 5px 12px 12px;
+  background: #b99570;
+}
+
+.cake-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 15px;
+  border-radius: 50%;
+  background: #e9d8bd;
+}
+
+.candle {
+  position: absolute;
+  left: 57px;
+  top: 10px;
+  height: 35px;
+  width: 7px;
+  background: repeating-linear-gradient(45deg, #fff5e6 0 5px, #bd9276 5px 8px);
+}
+
+.flame {
+  position: absolute;
+  left: 56px;
+  top: -10px;
+  width: 10px;
+  height: 15px;
+  background: #e3aa54;
+  border-radius: 80% 15% 80% 30%;
+  transform: rotate(-35deg);
+  animation: flicker .8s infinite alternate;
+  transform-origin: bottom;
+}
+
+@keyframes flicker {
+  from { transform: rotate(-35deg) scale(1); }
+  to { transform: rotate(-25deg) scale(.8); }
+}
+
+footer {
+  padding: 35px 20px;
+  text-align: center;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+
+footer p {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+footer strong { color: var(--ink); font-weight: 500; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.music-control {
+  position: fixed;
+  z-index: 30;
+  right: 20px;
+  bottom: 20px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 10px;
+}
+
+@media(max-width: 650px) {
+  nav { height: 60px; padding: 0 6%; }
+  .brand { font-size: 16px; }
+  .nav-right { font-size: 8px; letter-spacing: 1px; }
+  .hero { min-height: 78vh; }
+  .hero h1 { letter-spacing: -1.5px; }
+  .section { padding: 75px 6%; }
+  .photo-grid { grid-template-columns: 1fr; gap: 22px; }
+  .photo-frame { height: 340px; }
+  .letter-top { font-size: 8px; }
+  .music-control { right: 12px; bottom: 12px; }
+}
+</style>
+</head>
+
+<body>
+<div class="noise"></div>
+
+<nav>
+  <div class="brand">a little film.</div>
+  <div class="nav-right">A DAY WORTH REMEMBERING</div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">A special day · A special person</div>
+  <h1>Happy Birthday,<br><em>Dara.</em></h1>
+  <p>
+    Hari ini bukan cuma tentang bertambahnya usia,
+    tetapi juga tentang semua hal baik yang masih
+    menunggu untuk kamu temui.
+  </p>
+  <button class="primary" onclick="startStory()">
+    BEGIN THE STORY &nbsp; ↗
+  </button>
+  <div class="scroll-note">SCROLL TO EXPLORE ↓</div>
+</header>
+
+<section class="section intro" id="intro">
+  <div class="intro-inner reveal">
+    <div class="eyebrow">A note for you</div>
+    <blockquote>
+      “Some people make the world feel a little
+      softer, simply by being in it.”
+    </blockquote>
+    <p>
+      Hari ini, semoga dunia memberikan sedikit
+      lebih banyak hal baik untukmu.
+    </p>
+    <div class="signature" style="margin-top:25px">— Radit Aditya</div>
+  </div>
+</section>
+
+<section class="section" id="memories">
+  <div class="section-head reveal">
+    <div class="eyebrow">Chapter 01 · Little moments</div>
+    <h2>Collected memories.</h2>
+    <p>
+      Tiga potongan cerita yang pantas disimpan lebih lama.
+    </p>
+  </div>
+
+  <div class="gallery reveal">
+    <div class="photo-grid">
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="foto1.jpg" alt="Kenangan pertama Dara">
+        </div>
+        <div class="photo-caption">The little things.</div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="foto2.jpg" alt="Kenangan kedua Dara">
+        </div>
+        <div class="photo-caption">The days we remember.</div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-frame">
+          <img src="foto3.jpg" alt="Kenangan ketiga Dara">
+        </div>
+        <div class="photo-caption">A page in our story.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section letter-section" id="letter">
+  <div class="section-head reveal">
+    <div class="eyebrow">Chapter 02 · A letter</div>
+    <h2>Words from the heart.</h2>
+  </div>
+
+  <article class="letter reveal">
+    <div class="letter-top">
+      <span>FOR DARA</span>
+      <span>WITH LOVE, RADIT</span>
+    </div>
+
+    <h3>Dear Dara,</h3>
+
+    <p>
+      Selamat ulang tahun, ya. Hari ini adalah hari
+      yang spesial, karena seseorang seperti kamu
+      pantas mendapatkan banyak kebahagiaan.
+    </p>
+
+    <p>
+      Aku berharap di usia yang baru ini, kamu bisa
+      semakin mengenal dirimu sendiri, semakin berani
+      mengejar apa yang kamu inginkan, dan semakin
+      percaya bahwa kamu mampu melewati banyak hal.
+    </p>
+
+    <p>
+      Kalau suatu hari semuanya terasa berat, semoga
+      kamu tetap punya alasan untuk tersenyum.
+      Semoga ada banyak orang baik yang menemanimu,
+      kesempatan yang membawamu lebih jauh, dan
+      ketenangan yang membuatmu merasa cukup.
+    </p>
+
+    <p>
+      Kamu tidak harus selalu kuat. Tidak harus
+      selalu tahu jawaban dari semuanya. Bertumbuh
+      juga berarti memberi dirimu sendiri waktu
+      untuk beristirahat dan memulai lagi.
+    </p>
+
+    <p>
+      Terima kasih sudah menjadi dirimu sendiri.
+      Semoga tahun ini membawa cerita yang lebih
+      indah, kejutan yang baik, dan banyak alasan
+      untuk bangga pada dirimu sendiri.
+    </p>
+
+    <p>
+      Selamat bertambah usia. Semoga hal-hal yang
+      selama ini kamu doakan perlahan menemukan
+      jalannya untuk sampai kepadamu.
+    </p>
+
+    <div class="closing">Always wishing you the best,</div>
+    <div class="signature" style="margin-top:10px">Radit Aditya.</div>
+  </article>
+</section>
+
+<section class="section" id="wish">
+  <div class="wish reveal">
+    <div class="eyebrow">Chapter 03 · A new beginning</div>
+    <div class="big-number">01</div>
+    <h2>Make a wish.</h2>
+    <p>
+      Pejamkan mata sebentar. Pikirkan satu hal
+      yang paling kamu inginkan tahun ini.
+      Simpan harapan itu dalam hati, lalu terus
+      berjalan sampai suatu hari kamu bisa melihatnya nyata.
+    </p>
+
+    <div class="cake">
+      <div class="cake-body"></div>
+      <div class="candle"></div>
+      <div class="flame" id="flame"></div>
+    </div>
+
+    <button class="primary" id="wishButton" onclick="blowCandle()">
+      MAKE A WISH &nbsp; ↗
+    </button>
+    <p id="wishMessage" style="margin-top:25px;min-height:48px"></p>
+  </div>
+</section>
+
+<footer>
+  <p>MADE WITH CARE, JUST FOR YOU</p>
+  <p style="margin-top:8px">
+    A little birthday film by <strong>Radit Aditya</strong>
+  </p>
+  <p style="margin-top:8px">© A day worth remembering.</p>
+</footer>
+
+<!-- Musik opsional: unggah assets/music.mp3 jika ingin menggunakannya -->
+<audio id="music" src="assets/music.mp3" loop preload="none"></audio>
+<button class="music-control" id="musicButton" onclick="toggleMusic()">
+  ♫ Music: Off
+</button>
+
+<script>
+const music = document.getElementById("music");
+let candleBlown = false;
+
+function startStory() {
+  document.getElementById("intro").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => {
+  observer.observe(el);
+});
+
+function blowCandle() {
+  if (candleBlown) return;
+  candleBlown = true;
+
+  document.getElementById("flame").style.display = "none";
+  document.getElementById("wishButton").textContent = "WISH MADE ✓";
+  document.getElementById("wishMessage").textContent =
+    "Semoga hal-hal baik menemukan jalan menuju kamu. Happy birthday, Dara.";
+}
+
+async function toggleMusic() {
+  const button = document.getElementById("musicButton");
+
+  if (music.paused) {
+    try {
+      await music.play();
+      button.textContent = "♫ Music: On";
+    } catch (error) {
+      button.textContent = "♫ Music unavailable";
+      alert("Pastikan file assets/music.mp3 sudah diunggah ke GitHub.");
+    }
+  } else {
+    music.pause();
+    button.textContent = "♫ Music: Off";
+  }
+}
+</script>
+
+</body>
+</html>
